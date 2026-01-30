@@ -1,3 +1,15 @@
+function filterByType(type) {
+  restaurantLayer.clearLayers();
+
+  L.geoJSON(restaurantData, {
+    filter: feature => feature.properties.type === type,
+    pointToLayer: (f, latlng) => L.marker(latlng, { icon: restaurantIcon }),
+    onEachFeature: (f, layer) => {
+      const p = f.properties;
+      layer.bindPopup(`<b>${p.name}</b><br>${p.type}`);
+    }
+  }).addTo(restaurantLayer);
+}
 // ================================
 // CÂU 5 - statistics.js
 // Thống kê GIS theo khu vực (district): bảng + biểu đồ
