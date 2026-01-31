@@ -18,8 +18,8 @@ function filterByType(type) {
 async function getRestaurants() {
   if (Array.isArray(window.restaurants) && window.restaurants.length) return window.restaurants;
 
-  const res = await fetch("data/restaurants.json");
-  if (!res.ok) throw new Error("Không tải được data/restaurants.json");
+  const res = await fetch("../data/restaurants.geojson");
+  if (!res.ok) throw new Error("Không tải được data/restaurants.geojson");
   return await res.json();
 }
 
@@ -137,7 +137,11 @@ function renderChart(rows) {
 
 (async function mainStatistics() {
   try {
-    const restaurants = await getRestaurants();
+    const data = await getRestaurants();
+    
+    // Nếu là GeoJSON, lấy features; nếu là array thì dùng trực tiếp
+    const restaurants = data.features ? data.features.map(f => f.properties) : data;
+    
     ensureStatsUI();
 
     const { rows, top } = computeStats(restaurants);
