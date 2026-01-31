@@ -1,7 +1,6 @@
-// 1. Khởi tạo bản đồ (CHỈ 1 LẦN)
+/******** 1. KHỞI TẠO BẢN ĐỒ ********/
 var map = L.map('map').setView([10.762622, 106.660172], 13);
 
-// 2. Thêm nền bản đồ
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
@@ -48,11 +47,13 @@ fetch("data/restaurants.geojson")
         layer.bindPopup(`
           <b>${p.name}</b><br>
           Loại: ${p.type}<br>
-          Địa chỉ: ${p.address}
+          Địa chỉ: ${p.address}<br>
+          Ghi chú: ${p.note ?? ""}
         `);
       }
     }).addTo(map);
-  });
+  })
+  .catch(err => console.error("GeoJSON error:", err));
 
 /******** 4. THÊM / XOÁ QUÁN ********/
 map.on('click', function (e) {
