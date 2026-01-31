@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 // 1. Khởi tạo bản đồ (CHỈ 1 LẦN)
 var map = L.map('map').setView([10.762622, 106.660172], 13);
 
 // 2. Thêm nền bản đồ
-=======
-var restaurantLayer;   // layer chứa tất cả quán ăn
-/******** 1. KHỞI TẠO BẢN ĐỒ ********/
-var map = L.map('map').setView([10.762622, 106.660172], 13);
-
->>>>>>> dev
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-<<<<<<< HEAD
 // 3. Load dữ liệu quán ăn từ GeoJSON
 fetch("data/restaurants.geojson")
   .then(response => response.json())
@@ -35,7 +27,6 @@ fetch("data/restaurants.geojson")
   .catch(error => {
     console.error("Lỗi load GeoJSON:", error);
   });
-=======
 /******** 2. ICON QUÁN ĂN ********/
 var restaurantIcon = L.icon({
   iconUrl: 'icons/restaurant.png',
@@ -130,4 +121,3 @@ function searchByDistance() {
     }
   });
 }
->>>>>>> dev
