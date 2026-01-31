@@ -1,3 +1,4 @@
+var restaurantLayer;   // layer chứa tất cả quán ăn
 /******** 1. KHỞI TẠO BẢN ĐỒ ********/
 var map = L.map('map').setView([10.762622, 106.660172], 13);
 
@@ -47,13 +48,11 @@ fetch("data/restaurants.geojson")
         layer.bindPopup(`
           <b>${p.name}</b><br>
           Loại: ${p.type}<br>
-          Địa chỉ: ${p.address}<br>
-          Ghi chú: ${p.note ?? ""}
+          Địa chỉ: ${p.address}
         `);
       }
     }).addTo(map);
-  })
-  .catch(err => console.error("GeoJSON error:", err));
+  });
 
 /******** 4. THÊM / XOÁ QUÁN ********/
 map.on('click', function (e) {
