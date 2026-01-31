@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Bản đồ quản lý quán ăn</title>
+  <meta charset="UTF-8">
+  <title>Bản đồ quản lý quán ăn</title>
 
     <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
-
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="js/routing.js"></script>
     <!-- CSS riêng -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
+<body>
+  <h1>BẢN ĐỒ QUẢN LÝ CÁC QUÁN ĂN</h1>
+
+  <!-- BẮT BUỘC -->
+  <div id="map"></div>
     <h1>BẢN ĐỒ QUẢN LÝ CÁC QUÁN ĂN</h1>
     <div id="search-box">
   <input type="text" id="searchInput" placeholder="Nhập tên quán..." />
@@ -23,13 +28,16 @@
 <button onclick="searchByDistance()">Tìm trong bán kính 500m</button>
 
 
-    <!-- Vùng hiển thị bản đồ -->
-    <div id="map"></div>
+  <!-- Leaflet JS (PHẢI TRƯỚC map.js) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+  <!-- JS của bạn -->
+  <script src="js/map.js"></script>
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- JS riêng -->
     <script src="js/map.js"></script>
+    <script src="js/filter-category.js"></script>
 </body>
 </html>

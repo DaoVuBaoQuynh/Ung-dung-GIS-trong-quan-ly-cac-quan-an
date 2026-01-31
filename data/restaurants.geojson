@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7009, 10.7769]
+      },
+      "properties": {
+        "name": "Quán Cơm Tấm A",
+        "type": "Cơm",
+        "address": "Quận 1, TP.HCM",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.6950, 10.7800]
+      },
+      "properties": {
+        "name": "Quán Phở B",
+        "type": "Phở",
+        "address": "Quận 3, TP.HCM",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.660172, 10.762622]
+      },
+      "properties": {
+        "name": "Quán Cơm Tấm",
+        "type": "Quán ăn",
+        "address": "Quận 10",
+        "note": "Mở buổi sáng"
+      }
+    }
+  ]
+}
