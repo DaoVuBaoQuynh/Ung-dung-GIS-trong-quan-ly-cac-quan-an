@@ -8,8 +8,8 @@ async function getRestaurants() {
   if (Array.isArray(window.restaurants) && window.restaurants.length) return window.restaurants;
 
   // ĐỔI path này theo project của bạn nếu khác
-  const res = await fetch("data/restaurants.json");
-  if (!res.ok) throw new Error("Không tải được data/restaurants.json");
+  const res = await fetch("../data/restaurants.geojson");
+  if (!res.ok) throw new Error("Không tải được data/restaurants.geojson");
   return await res.json();
 }
 
@@ -150,7 +150,18 @@ function applyFilter(allRestaurants) {
 (async function mainFilterCategory() {
   try {
     ensureMap();
-    const all = await getRestaurants();
+    const data = await getRestaurants();
+    
+    // Nếu là GeoJSON, lấy features; nếu là array thì dùng trực tiếp
+    const all = data.features ? data.features.map(f => {
+      const props = f.properties || {};
+      const coords = f.geometry?.coordinates || [0, 0];
+      return {
+        ...props,
+        lng: coords[0],
+        lat: coords[1]
+      };
+    }) : data;
 
     // tạo danh sách option
     const categories = [...new Set(all.map(r => r.category).filter(Boolean))].sort();
