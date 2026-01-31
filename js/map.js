@@ -5,6 +5,27 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+// 3. Load dữ liệu quán ăn từ GeoJSON
+fetch("data/restaurants.geojson")
+  .then(response => response.json())
+  .then(data => {
+    L.geoJSON(data, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng);
+      },
+      onEachFeature: function (feature, layer) {
+        const p = feature.properties;
+        layer.bindPopup(
+          `<b>${p.name}</b><br>
+           Loại: ${p.type}<br>
+           Địa chỉ: ${p.address}`
+        );
+      }
+    }).addTo(map);
+  })
+  .catch(error => {
+    console.error("Lỗi load GeoJSON:", error);
+  });
 /******** 2. ICON QUÁN ĂN ********/
 var restaurantIcon = L.icon({
   iconUrl: 'icons/restaurant.png',
@@ -17,7 +38,7 @@ var restaurantIcon = L.icon({
 fetch("data/restaurants.geojson")
   .then(res => res.json())
   .then(data => {
-    L.geoJSON(data, {
+    restaurantLayer = L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
         return L.marker(latlng, { icon: restaurantIcon });
       },
@@ -56,3 +77,48 @@ map.on('click', function (e) {
     map.removeLayer(marker);
   });
 });
+function searchByName() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+  restaurantLayer.eachLayer(function (layer) {
+    const name = layer.feature.properties.name.toLowerCase();
+
+    if (name.includes(keyword)) {
+      layer.addTo(map);
+      layer.openPopup();
+    } else {
+      map.removeLayer(layer);
+    }
+  });
+}
+var searchCenter;
+var searchCircle;
+map.on("dblclick", function (e) {
+  searchCenter = e.latlng;
+
+  if (searchCircle) {
+    map.removeLayer(searchCircle);
+  }
+
+  searchCircle = L.circle(searchCenter, {
+    radius: 500, // 500m
+    color: "red",
+    fillOpacity: 0.1
+  }).addTo(map);
+});
+function searchByDistance() {
+  if (!searchCenter) {
+    alert("Double click bản đồ để chọn vị trí tìm");
+    return;
+  }
+
+  restaurantLayer.eachLayer(function (layer) {
+    const distance = searchCenter.distanceTo(layer.getLatLng());
+
+    if (distance <= 500) {
+      layer.addTo(map);
+    } else {
+      map.removeLayer(layer);
+    }
+  });
+}

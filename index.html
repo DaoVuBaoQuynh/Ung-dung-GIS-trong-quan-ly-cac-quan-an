@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <title>Bản đồ quản lý quán ăn</title>
 
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-
-  <!-- CSS của bạn -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="js/routing.js"></script>
+    <!-- CSS riêng -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -19,11 +20,24 @@
 
   <!-- BẮT BUỘC -->
   <div id="map"></div>
+    <h1>BẢN ĐỒ QUẢN LÝ CÁC QUÁN ĂN</h1>
+    <div id="search-box">
+  <input type="text" id="searchInput" placeholder="Nhập tên quán..." />
+  <button onclick="searchByName()">Tìm</button>
+</div>
+<button onclick="searchByDistance()">Tìm trong bán kính 500m</button>
+
 
   <!-- Leaflet JS (PHẢI TRƯỚC map.js) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- JS của bạn -->
   <script src="js/map.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- JS riêng -->
+    <script src="js/map.js"></script>
+    <script src="js/filter-category.js"></script>
 </body>
 </html>
